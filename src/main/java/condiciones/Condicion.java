@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 public interface Condicion {
     String getCondicion();
 
+    
     @AllArgsConstructor
     public class CondicionLU implements Condicion{
         private String valorLU;

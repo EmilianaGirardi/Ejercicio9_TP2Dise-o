@@ -1,24 +1,30 @@
 package entity;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import java.util.Date;
+
+import java.time.LocalDate;
 import java.util.List;
-@NoArgsConstructor
+
+//Lombok
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
+
+//Javax persistence
 @Entity
 public class Estudiante
 {
-    @Id
+    
+	@Id
     private String dniEstudiante;
 
     @Column(nullable = false)
@@ -34,7 +40,7 @@ public class Estudiante
     private char genero;
 
     @Column(name = "fecha_nacimiento", nullable = false)
-    private Date fechaNacimiento;
+    private LocalDate fechaNacimiento;
 
     @Column(nullable = false)
     private String ciudad;
