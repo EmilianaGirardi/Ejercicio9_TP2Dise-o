@@ -46,21 +46,6 @@ public interface Condicion {
                     "and i.dni_estudiante in " +
                     "(SELECT e.dni_estudiante from Estudiate e where e.ciudad = " + ciudad;
         }
-
-        /* en InscripcionRepository:
-
-        public List<Estudiante> getEstudiante(Condicion c, Ordenamiento o) {
-            String query = "SELECT i.dni_estudiante FROM Inscripcion i".concat(c.getCondicion()).concat(ord.getOrdenamiento());
-            TypedQuery<Inscripcion> q = em.createQuery(query, Estudiante.class);
-            List<String> result = q.getResultList();
-            List<Estudiante> estudiantes = new List<Estudiante>();
-            for each (dni in result){
-                estudiantes.add(EstudianteRepository.getEstudianteById(dni);
-            }
-            return estudiantes;
-        }
-         */
-
     }
 
     public class CondicionEstPorCiudad implements Condicion{

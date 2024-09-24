@@ -48,7 +48,7 @@ public class InscripcionRepository extends BaseJPARepository<Inscripcion, Inscri
         TypedQuery<Estudiante> q = em.createQuery(query,Estudiante.class);
         return q.getResultList();
     	 */
-		String query = "SELECT i.dni_estudiante FROM Inscripcion i".concat(c.getCondicion()).concat(ord.getOrdenamiento());
+		String query = "SELECT i.dni_estudiante FROM Inscripcion i".concat(c.getCondicion()).concat(o.getOrdenamiento());
 		TypedQuery<String> q = em.createQuery(query, String.class);
 		List<String> result = q.getResultList();
 		List<Estudiante> estudiantes = new ArrayList<>();
