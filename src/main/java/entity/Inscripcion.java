@@ -1,7 +1,7 @@
-package Entity;
+package entity;
 
 
-import Embebido.InscripcionId;
+import embebido.InscripcionId;
 
 import javax.persistence.*;
 import java.util.Date;

@@ -1,4 +1,4 @@
-package Entity;
+package entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,9 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import java.util.Date;
 import java.util.List;
-
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 @Entity
@@ -40,7 +39,7 @@ public class Estudiante
     @Column(nullable = false)
     private String ciudad;
 
-    @OneToMany(mappedBy = "dni_estudiante")
+    @OneToMany(mappedBy = "estudiante")
     private List<Inscripcion> inscripciones;
 
 }
