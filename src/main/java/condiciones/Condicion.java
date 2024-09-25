@@ -26,6 +26,7 @@ public interface Condicion {
         }
     }
 
+    /*
     @AllArgsConstructor
     public class CondicionVacia implements Condicion{
         @Override
@@ -33,7 +34,7 @@ public interface Condicion {
             return "";
         }
     }
-
+    */
 
     @AllArgsConstructor
     public class CondicionEstPorCarreraYCiudad implements Condicion{
@@ -55,6 +56,7 @@ public interface Condicion {
             return "WHERE e.ciudad = " + ciudad;
         }
     }
+
 }
 
 

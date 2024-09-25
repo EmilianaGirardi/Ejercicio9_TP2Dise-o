@@ -11,6 +11,7 @@ import javax.persistence.TypedQuery;
 
 import condiciones.Condicion;
 import condiciones.Ordenamiento;
+import embebido.InscripcionId;
 
 public class BaseJPARepository <Entity, ID extends Serializable> implements Repository<Entity, ID> {
 	protected EntityManager em;
@@ -29,6 +30,13 @@ public class BaseJPARepository <Entity, ID extends Serializable> implements Repo
 	public Entity findById(ID id) {
 		Entity e = em.find(entityClass, id);
 		return e;
+	}
+
+	public boolean exist(ID id) {
+		Entity e = findById(id);
+		if (e == null){
+			return false;
+		} else return true;
 	}
 
 	@Override
@@ -54,26 +62,27 @@ public class BaseJPARepository <Entity, ID extends Serializable> implements Repo
 
 	@Override
 	public List<Entity> findAll(){
-		TypedQuery<Entity> q = em.createQuery("SELECT e FROM Entity e",entityClass);
+		TypedQuery<Entity> q = em.createQuery("SELECT e FROM " + entityClass.getSimpleName() + " e",entityClass);
 		return q.getResultList();
 	}
 
 	@Override
 	public List<Entity> findWith(Condicion c) {
-		TypedQuery<Entity> q = em.createQuery("SELECT e FROM Entity e ".concat(c.getCondicion()),entityClass);
+		TypedQuery<Entity> q = em.createQuery("SELECT e FROM " + entityClass.getSimpleName() + " e ".concat(c.getCondicion()),entityClass);
 		return q.getResultList();
 	}
 	
 	@Override
 	public List<Entity> findWith(Ordenamiento o) {
-		TypedQuery<Entity> q = em.createQuery("SELECT e FROM Entity e ".concat(o.getOrdenamiento()),entityClass);
+		TypedQuery<Entity> q = em.createQuery("SELECT e FROM " + entityClass.getSimpleName() + " e ".concat(o.getOrdenamiento()),entityClass);
 		return q.getResultList();
 	}
 
 	@Override
 	public List<Entity> findWith(Condicion c, Ordenamiento o) {
-		TypedQuery<Entity> q = em.createQuery("SELECT e FROM Entity e ".concat(c.getCondicion()).concat(o.getOrdenamiento()),entityClass);
+		TypedQuery<Entity> q = em.createQuery("SELECT e FROM " + entityClass.getSimpleName() + " e ".concat(c.getCondicion()).concat(o.getOrdenamiento()),entityClass);
 		return q.getResultList();
 	}
+
 
 }

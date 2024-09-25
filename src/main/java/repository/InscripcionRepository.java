@@ -57,4 +57,5 @@ public class InscripcionRepository extends BaseJPARepository<Inscripcion, Inscri
 		}
 		return estudiantes;
     }
+
 }

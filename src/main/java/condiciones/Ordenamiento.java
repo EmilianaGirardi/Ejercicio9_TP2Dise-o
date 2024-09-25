@@ -15,6 +15,7 @@ public interface Ordenamiento {
         }
     }
 
+    /*
     @AllArgsConstructor
     public class OrdenamientoVacio implements Ordenamiento{
         @Override
@@ -22,12 +23,21 @@ public interface Ordenamiento {
             return "";
         }
     }
+    */
 
     public class OrdenamientoCantInscriptos implements Ordenamiento{
         @Override
         public String getOrdenamiento() {
             return "GROUP BY id_carrera" +
                     "ORDER BY COUNT(*) DESC;";
+        }
+    }
+
+    public class OrdenamientoAlfabeticoYAnios implements Ordenamiento{
+        @Override
+        public String getOrdenamiento() {
+            return "GROUP BY carrera, EXTRACT(YEAR FROM i.fechaInscripcion) " +
+                    "ORDER BY carrera ASC, anio ASC;";
         }
     }
 }
