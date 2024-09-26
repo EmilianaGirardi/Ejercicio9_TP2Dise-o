@@ -12,6 +12,7 @@ import javax.persistence.TypedQuery;
 import condiciones.Condicion;
 import condiciones.Ordenamiento;
 import embebido.InscripcionId;
+import manager.EntityManagerProvider;
 
 public class BaseJPARepository <Entity, ID extends Serializable> implements Repository<Entity, ID> {
 	protected EntityManager em;
@@ -20,8 +21,7 @@ public class BaseJPARepository <Entity, ID extends Serializable> implements Repo
 	
 	public BaseJPARepository(Class<Entity> entityClass, Class<ID> idClass) {
 		super();
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Project");
-		this.em = emf.createEntityManager();
+		this.em = EntityManagerProvider.getEntityManager();
 		this.entityClass = entityClass;
 		this.idClass = idClass;
 	}

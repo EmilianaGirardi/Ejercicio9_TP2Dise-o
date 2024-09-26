@@ -20,5 +20,4 @@ public class Carrera {
 
     @Column(nullable = false)
     private String nombre;
-
 }

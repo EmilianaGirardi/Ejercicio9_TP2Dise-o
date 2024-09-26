@@ -1,19 +1,20 @@
 package embebido;
 
+import java.io.Serializable;
+
+import entity.Carrera;
+import entity.Estudiante;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Embeddable;
-import java.io.Serializable;
-
-@NoArgsConstructor
 @AllArgsConstructor
-@Embeddable
+@NoArgsConstructor
 @Getter
 @Setter
 public class InscripcionId implements Serializable {
-    private String dniEstudiante;
-    private int idCarrera;
+    private Carrera carrera;
+    private Estudiante estudiante;
+
 }
