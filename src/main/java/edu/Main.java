@@ -154,8 +154,6 @@ public class Main {
 		//MATRICULAR UN ESTUDIANTE EN UNA CARRERA
 
 
-		System.out.println("estudiantes size: "+estudiantes.size());
-		System.out.println("carreras size: "+carreras.size());
 		persistirInscripciones(repCarrera,repEstudiante,repInscripcion, estudiantes, carreras);
 
 
@@ -174,13 +172,38 @@ public class Main {
 
 		//Recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia.
 		recuperarEstudiantesDeCarreraXCiudad(repInscripcion);
+
+		//Generar un reporte de las carreras, que para cada carrera incluya información de los inscriptos y
+		// egresados por año. Se deben ordenar las carreras alfabéticamente, y presentar los años de manera cronológica.
+
 	}
 
 	private static void recuperarEstudiantesDeCarreraXCiudad(InscripcionRepository repInscripcion) {
+		int idCarrera = 3;
+		String ciudad = "Buenos Aires";
+
+		Ordenamiento.OrdenamientoVacio ord = new Ordenamiento.OrdenamientoVacio();
+		Condicion.CondicionEstPorCarreraYCiudad cond = new Condicion.CondicionEstPorCarreraYCiudad(idCarrera,ciudad);
+		List<Estudiante> estudiantes = repInscripcion.getEstudiantes(cond, ord);
+		if (estudiantes == null || estudiantes.isEmpty()) {
+			System.out.println("No hay estudiantes para mostrar.");
+		} else {
+			imprimirEstudiantes(estudiantes);
+		}
 	}
 
 	private static void recuperarCarrerasConInscriptosOrdXCant(InscripcionRepository repInscripcion) {
-
+		Condicion.CondicionVacia cond = new Condicion.CondicionVacia();
+		Ordenamiento.OrdenamientoCantInscriptos ord = new Ordenamiento.OrdenamientoCantInscriptos();
+		List<Carrera> carreras = repInscripcion.getCarreras(cond,ord);
+		if (carreras == null || carreras.isEmpty()) {
+			System.out.println("No hay carreras para mostrar.");
+		} else {
+			System.out.println("Listado de Carreras:");
+			for (Carrera carrera : carreras) {
+				System.out.println("ID: " + carrera.getIdCarrera() + ", Nombre: " + carrera.getNombre());
+			}
+		}
 	}
 
 	private static void recuperarEstudiantesGenero(EstudianteRepository repEstudiante) {
@@ -213,7 +236,6 @@ public class Main {
 			imprimirEstudiantes(estudiantes);
 		}
 	}
-
 
 	public static void imprimirEstudiantes(List<Estudiante> estudiantes){
 		System.out.println("Lista de Estudiantes:");
