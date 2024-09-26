@@ -2,10 +2,7 @@ package entity;
 
 
 import embebido.InscripcionId;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -14,15 +11,17 @@ import java.util.Date;
 @NoArgsConstructor
 @Getter
 @Setter
-
+@EqualsAndHashCode
 @Entity
 public class Inscripcion {
     @EmbeddedId
     private InscripcionId id;
+
     @ManyToOne
     @MapsId("dniEstudiante")
     @JoinColumn(name = "dni_estudiante")
     private Estudiante estudiante;
+
     @ManyToOne
     @MapsId("idCarrera")
     @JoinColumn(name = "id_carrera")

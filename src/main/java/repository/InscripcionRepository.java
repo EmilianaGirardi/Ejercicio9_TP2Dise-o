@@ -8,6 +8,7 @@ import condiciones.Condicion;
 import condiciones.Ordenamiento;
 
 
+import javax.persistence.EntityExistsException;
 import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,4 +59,17 @@ public class InscripcionRepository extends BaseJPARepository<Inscripcion, Inscri
 		return estudiantes;
     }
 
+	public void save (Inscripcion inscripcion){
+		em.getTransaction().begin();
+		em.persist(inscripcion);
+		em.getTransaction().commit();
+	}
+
+	public boolean exist(InscripcionId id) {
+		String query = "SELECT COUNT(i) FROM Inscripcion i WHERE i.id = :id";
+		Long count = (Long) em.createQuery(query)
+				.setParameter("id", id)
+				.getSingleResult();
+		return count > 0;
+	}
 }
