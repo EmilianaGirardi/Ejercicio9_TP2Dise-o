@@ -4,6 +4,7 @@ import dto.ReporteCarreraDTO;
 import entity.Carrera;
 
 import javax.persistence.Query;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CarreraRepository extends BaseJPARepository<Carrera, Integer>{

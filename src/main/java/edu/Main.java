@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Random;
 
 import condiciones.*;
+import dto.ReporteCarreraDTO;
 import embebido.InscripcionId;
 import entity.Carrera;
 import entity.Estudiante;
@@ -175,7 +176,22 @@ public class Main {
 
 		//Generar un reporte de las carreras, que para cada carrera incluya información de los inscriptos y
 		// egresados por año. Se deben ordenar las carreras alfabéticamente, y presentar los años de manera cronológica.
+		recuperarCarrerasInscriptosYEgresados(repCarrera);
+	}
 
+	private static void recuperarCarrerasInscriptosYEgresados(CarreraRepository repCarrera) {
+		List<ReporteCarreraDTO> reportes = repCarrera.obtenerListadoCarreras();
+		if (reportes == null || reportes.isEmpty()) {
+			System.out.println("No hay carreras para mostrar.");
+		} else {
+			System.out.println("Listado de Reportes de Carrera:");
+			for (ReporteCarreraDTO reporte : reportes) {
+				System.out.println("Nombre de Carrera: " + reporte.getNombreCarrera() +
+						", Año de Inscripción: " + reporte.getAnioInscripcion() +
+						", Inscriptos: " + reporte.getInscriptos() +
+						", Egresados: " + reporte.getEgresados());
+			}
+		}
 	}
 
 	private static void recuperarEstudiantesDeCarreraXCiudad(InscripcionRepository repInscripcion) {

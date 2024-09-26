@@ -10,7 +10,6 @@ import java.util.Date;
 @Getter
 @Setter
 @NoArgsConstructor
-
 public class ReporteCarreraDTO {
     private String nombreCarrera;
     private int anioInscripcion;
