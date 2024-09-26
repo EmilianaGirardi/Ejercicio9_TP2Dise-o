@@ -194,7 +194,7 @@ public interface Condicion {
         private String valorLU;
         @Override
         public String getCondicion(){
-            String condicion = "WHERE e.libreta_universitaria = " + valorLU;
+            String condicion = "WHERE e.libretaUniversitaria = " + "'"+valorLU+"'";
             return condicion;
         }
     }
@@ -204,12 +204,12 @@ public interface Condicion {
         private char genero;
         @Override
         public String getCondicion(){
-            String condicion = "WHERE e.genero = " + genero;
+            String condicion = "WHERE e.genero = " + "'"+genero+"'";
             return condicion;
         }
     }
 
-    
+
     @AllArgsConstructor
     public class CondicionVacia implements Condicion{
         @Override
@@ -217,7 +217,7 @@ public interface Condicion {
             return "";
         }
     }
-   
+
 
     @AllArgsConstructor
     public class CondicionEstPorCarreraYCiudad implements Condicion{
@@ -226,9 +226,9 @@ public interface Condicion {
 
         @Override
         public String getCondicion() {
-            return "WHERE i.id_carrera = " + idCarrera +
-                    "and i.dni_estudiante in " +
-                    "(SELECT e.dni_estudiante from Estudiate e where e.ciudad = " + ciudad;
+            return " WHERE i.carrera.idcarrera = " + idCarrera +
+                    " and i.estudiante.dniestudiante in " +
+                    "(SELECT e.dniestudiante from Estudiante e where e.ciudad = " + "'"+ciudad+"')";
         }
     }
 
@@ -236,7 +236,7 @@ public interface Condicion {
         private String ciudad;
         @Override
         public String getCondicion() {
-            return "WHERE e.ciudad = " + ciudad;
+            return "WHERE e.ciudad = " + "'"+ciudad+"'";
         }
     }
 
@@ -257,7 +257,7 @@ public interface Ordenamiento {
         }
     }
 
-    /*
+
     @AllArgsConstructor
     public class OrdenamientoVacio implements Ordenamiento{
         @Override
@@ -265,21 +265,21 @@ public interface Ordenamiento {
             return "";
         }
     }
-    */
+
 
     public class OrdenamientoCantInscriptos implements Ordenamiento{
         @Override
         public String getOrdenamiento() {
-            return "GROUP BY id_carrera" +
-                    "ORDER BY COUNT(*) DESC;";
+            return " GROUP BY i.carrera.idcarrera" +
+                    " ORDER BY COUNT(*) DESC";
         }
     }
 
     public class OrdenamientoAlfabeticoYAnios implements Ordenamiento{
         @Override
         public String getOrdenamiento() {
-            return "GROUP BY carrera, EXTRACT(YEAR FROM i.fechaInscripcion) " +
-                    "ORDER BY carrera ASC, anio ASC;";
+            return " GROUP BY carrera, EXTRACT(YEAR FROM i.fechaInscripcion) " +
+                    " ORDER BY carrera ASC, anio ASC";
         }
     }
 }
@@ -322,12 +322,12 @@ El sistema permite realizar las siguientes operaciones:
     
     ```java
     public class CondicionLU implements Condicion{
-       private String valorLU;
-       @Override
-       public String getCondicion(){
-    		  String condicion = "WHERE e.libreta_universitaria = " + valorLU;
-          return condicion;
-       }
+        private String valorLU;
+        @Override
+        public String getCondicion(){
+            String condicion = "WHERE e.libretaUniversitaria = " + "'"+valorLU+"'";
+            return condicion;
+        }
     }
     ```
     
@@ -344,8 +344,8 @@ El sistema permite realizar las siguientes operaciones:
         private char genero;
         @Override
         public String getCondicion(){
-           String condicion = "WHERE e.genero = " + genero;
-           return condicion;
+            String condicion = "WHERE e.genero = " + "'"+genero+"'";
+            return condicion;
         }
     }
     ```
@@ -361,8 +361,8 @@ El sistema permite realizar las siguientes operaciones:
     public class OrdenamientoCantInscriptos implements Ordenamiento{
         @Override
         public String getOrdenamiento() {
-        return "GROUP BY id_carrera" +
-          "ORDER BY COUNT(*) DESC;";
+            return " GROUP BY i.carrera.idcarrera" +
+                    " ORDER BY COUNT(*) DESC";
         }
     }
     ```
@@ -376,15 +376,15 @@ El sistema permite realizar las siguientes operaciones:
     
     ```java
     public class CondicionEstPorCarreraYCiudad implements Condicion{
-            private int idCarrera;
-            private String ciudad;
-    
-            @Override
-            public String getCondicion() {
-                return "WHERE i.id_carrera = " + idCarrera +
-                        "and i.dni_estudiante in " +
-                        "(SELECT e.dni_estudiante from Estudiate e where e.ciudad = " + ciudad;
-            }
+        private int idCarrera;
+        private String ciudad;
+
+        @Override
+        public String getCondicion() {
+            return " WHERE i.carrera.idcarrera = " + idCarrera +
+                    " and i.estudiante.dniestudiante in " +
+                    "(SELECT e.dniestudiante from Estudiante e where e.ciudad = " + "'"+ciudad+"')";
+        }
     }
     ```
     
@@ -394,18 +394,18 @@ El sistema permite realizar las siguientes operaciones:
     
     ```java
     public List<ReporteCarreraDTO> obtenerListadoCarreras() {
-    		String sql = "SELECT c.nombre AS nombreCarrera, " +
-    				"i.fecha_inscripcion AS fechaInscripcion, " +
-    				"COUNT(i.dni_estudiante) AS inscriptos, " +
-    				"SUM(CASE WHEN i.graduado = true THEN 1 ELSE 0 END) AS egresados " +
-    				"FROM Carrera c " +
-    				"LEFT JOIN Inscripcion i ON c.id_carrera = i.id_carrera " +
-    				"GROUP BY c.nombre, YEAR(i.fecha_inscripcion) " +
-    				"ORDER BY c.nombre ASC, YEAR(i.fecha_inscripcion) ASC";
-    
-    		Query query = em.createNativeQuery(sql, ReporteCarreraDTO.class);
-    		return query.getResultList();
-    	}
+		String sql = "SELECT new dto.ReporteCarreraDTO(c.nombre, " +
+				"EXTRACT(YEAR FROM i.fechaInscripcion), " +
+				"COUNT(i.estudiante.dniestudiante), " +
+				"SUM(CASE WHEN i.graduado = true THEN 1 ELSE 0 END)) " +
+				"FROM Carrera c " +
+				"INNER JOIN Inscripcion i ON c.idcarrera = i.carrera.idcarrera " +
+				"GROUP BY c.nombre, EXTRACT(YEAR FROM i.fechaInscripcion) " +
+				"ORDER BY c.nombre ASC, EXTRACT(YEAR FROM i.fechaInscripcion) ASC";
+
+		Query query = em.createQuery(sql, ReporteCarreraDTO.class);
+		return query.getResultList();
+	}
     ```
     
     El objeto DTO creado para entregar el reporte:
@@ -417,9 +417,9 @@ El sistema permite realizar las siguientes operaciones:
         private long inscriptos;
         private long egresados;
     
-        public ReporteCarreraDTO(String nombreCarrera, Date fechaInscripcion, long inscriptos, long egresados) {
+        public ReporteCarreraDTO(String nombreCarrera, int fechaInscripcion, long inscriptos, long egresados) {
             this.nombreCarrera = nombreCarrera;
-            this.anioInscripcion = fechaInscripcion.getYear();
+            this.anioInscripcion = fechaInscripcion;
             this.inscriptos = inscriptos;
             this.egresados = egresados;
         }
