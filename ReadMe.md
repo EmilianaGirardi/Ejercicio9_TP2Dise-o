@@ -21,11 +21,11 @@ Se implementaron las siguientes entidades en JPA:
     - fechaNacimiento: LocalDate
     - Ciudad: String
     - inscripciones: List<Inscripcion>
-- Carrera:
+- **Carrera**:
     - idCarrera: int
     - nombre: String
     - inscripciones: List<Inscripcion>
-- Inscripcion:
+- **Inscripcion**:
     - id: inscripcionId
     - estudiante: Estudiante
     - carrera: Carrera
