@@ -15,7 +15,7 @@ Completado: No
 Los diagramas de objetos y DER están incluidos en la carpeta `/diagrams`. Estos representan las entidades y relaciones modeladas en el sistema:
 
 - **Diagrama de objetos**: `data/Dclases.png`
-- **Diagrama DER**: `data/Der.png`
+- **Diagrama DER**: `data/DER.png`
 
 ---
 
