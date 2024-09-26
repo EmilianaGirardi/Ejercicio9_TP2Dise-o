@@ -24,16 +24,16 @@ public class CarreraRepository extends BaseJPARepository<Carrera, Integer>{
 	}
 
 	public List<ReporteCarreraDTO> obtenerListadoCarreras() {
-		String sql = "SELECT c.nombre AS nombreCarrera, " +
-				"i.fecha_inscripcion AS fechaInscripcion, " +
-				"COUNT(i.dni_estudiante) AS inscriptos, " +
-				"SUM(CASE WHEN i.graduado = true THEN 1 ELSE 0 END) AS egresados " +
+		String sql = "SELECT new dto.ReporteCarreraDTO(c.nombre, " +
+				"EXTRACT(YEAR FROM i.fechaInscripcion), " +
+				"COUNT(i.estudiante.dniestudiante), " +
+				"SUM(CASE WHEN i.graduado = true THEN 1 ELSE 0 END)) " +
 				"FROM Carrera c " +
-				"LEFT JOIN Inscripcion i ON c.id_carrera = i.id_carrera " +
-				"GROUP BY c.nombre, YEAR(i.fecha_inscripcion) " +
-				"ORDER BY c.nombre ASC, YEAR(i.fecha_inscripcion) ASC";
+				"INNER JOIN Inscripcion i ON c.idcarrera = i.carrera.idcarrera " +
+				"GROUP BY c.nombre, EXTRACT(YEAR FROM i.fechaInscripcion) " +
+				"ORDER BY c.nombre ASC, EXTRACT(YEAR FROM i.fechaInscripcion) ASC";
 
-		Query query = em.createNativeQuery(sql, ReporteCarreraDTO.class);
+		Query query = em.createQuery(sql, ReporteCarreraDTO.class);
 		return query.getResultList();
 	}
 

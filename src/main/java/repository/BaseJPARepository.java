@@ -39,16 +39,13 @@ public class BaseJPARepository <Entity, ID extends Serializable> implements Repo
 	@Override
 	public void persist(Entity entity) throws EntityExistsException{
 		em.getTransaction().begin();
-		//System.out.print("llegue aca soy: "+ entityClass.getSimpleName()+"id"+idClass.getSimpleName());
 		try {
 			em.persist(entity);
 		} catch (EntityExistsException e) {
 				System.out.println("Entity already exists: " + e.getMessage());
 				em.merge(entity);
 			}
-		//System.out.print(" antes commit "+entityClass.getSimpleName());
 		em.getTransaction().commit();
-		//System.out.print(" termine "+entityClass.getSimpleName());
 	}
 
 

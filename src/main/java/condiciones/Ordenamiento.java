@@ -28,16 +28,16 @@ public interface Ordenamiento {
     public class OrdenamientoCantInscriptos implements Ordenamiento{
         @Override
         public String getOrdenamiento() {
-            return "GROUP BY id_carrera" +
-                    "ORDER BY COUNT(*) DESC;";
+            return " GROUP BY i.carrera.idcarrera" +
+                    " ORDER BY COUNT(*) DESC";
         }
     }
 
     public class OrdenamientoAlfabeticoYAnios implements Ordenamiento{
         @Override
         public String getOrdenamiento() {
-            return "GROUP BY carrera, EXTRACT(YEAR FROM i.fechaInscripcion) " +
-                    "ORDER BY carrera ASC, anio ASC;";
+            return " GROUP BY carrera, EXTRACT(YEAR FROM i.fechaInscripcion) " +
+                    " ORDER BY carrera ASC, anio ASC";
         }
     }
 }

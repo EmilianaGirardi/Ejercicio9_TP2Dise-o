@@ -34,7 +34,7 @@ public class InscripcionRepository extends BaseJPARepository<Inscripcion, Inscri
 		/*TypedQuery<Carrera> q = em.createQuery("SELECT c FROM inscripcion i JOIN carrera c ".concat(c.getCondicion()).concat(" GROUP BY c.idCarrera ").concat(o.getOrdenamiento()), Carrera.class);
 		return q.getResultList();
 		*/
-		String query = "SELECT i.id_carrera FROM Inscripcion i".concat(c.getCondicion()).concat(o.getOrdenamiento());
+		String query = "SELECT i.carrera.idcarrera FROM Inscripcion i".concat(c.getCondicion()).concat(o.getOrdenamiento());
 		TypedQuery<Integer> q = em.createQuery(query, Integer.class);
 		List<Integer> result = q.getResultList(); //lista de id_carrera
 		List<Carrera> carreras = new ArrayList<>();
@@ -49,7 +49,7 @@ public class InscripcionRepository extends BaseJPARepository<Inscripcion, Inscri
         TypedQuery<Estudiante> q = em.createQuery(query,Estudiante.class);
         return q.getResultList();
     	 */
-		String query = "SELECT i.dni_estudiante FROM Inscripcion i".concat(c.getCondicion()).concat(o.getOrdenamiento());
+		String query = "SELECT i.estudiante.dniestudiante FROM Inscripcion i".concat(c.getCondicion()).concat(o.getOrdenamiento());
 		TypedQuery<String> q = em.createQuery(query, String.class);
 		List<String> result = q.getResultList();
 		List<Estudiante> estudiantes = new ArrayList<>();
@@ -65,11 +65,4 @@ public class InscripcionRepository extends BaseJPARepository<Inscripcion, Inscri
 		em.getTransaction().commit();
 	}
 
-	public boolean exist(InscripcionId id) {
-		String query = "SELECT COUNT(i) FROM Inscripcion i WHERE i.id = :id";
-		Long count = (Long) em.createQuery(query)
-				.setParameter("id", id)
-				.getSingleResult();
-		return count > 0;
-	}
 }

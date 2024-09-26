@@ -1,7 +1,12 @@
 package embebido;
 
 
+import entity.Carrera;
+import entity.Estudiante;
 import lombok.*;
+
+import javax.persistence.Embeddable;
+import java.io.Serializable;
 
 
 @AllArgsConstructor
@@ -16,3 +21,4 @@ public class InscripcionId implements Serializable {
     private Estudiante estudiante;
 
 }
+

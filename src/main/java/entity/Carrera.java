@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import java.io.Serializable;
 import java.util.List;
 
 @AllArgsConstructor
@@ -14,9 +15,9 @@ import java.util.List;
 @Setter
 @EqualsAndHashCode
 @Entity
-public class Carrera {
+public class Carrera implements Serializable {
     @Id
-    private int idCarrera;
+    private int idcarrera;
 
     @Column(nullable = false)
     private String nombre;

@@ -2,13 +2,10 @@ package entity;
 
 
 
+
 import embebido.InscripcionId;
 import lombok.*;
-
-
 import javax.persistence.*;
-
-import embebido.InscripcionId;
 import java.time.LocalDate;
 
 @AllArgsConstructor
@@ -18,17 +15,17 @@ import java.time.LocalDate;
 @EqualsAndHashCode
 
 @Entity
-@IdClass(InscripcionId.class) // Usamos una clase ID compuesta :)) jeje
+@IdClass(InscripcionId.class) // Usamos una clase ID compuesta
 public class Inscripcion {
 
     @Id
     @ManyToOne // Relación con Carrera
-    @JoinColumn(name = "idCarrera", referencedColumnName = "idCarrera")
+    @JoinColumn(name = "idcarrera", referencedColumnName = "idcarrera")
     private Carrera carrera;
 
     @Id
     @ManyToOne // Relación con Estudiante
-    @JoinColumn(name = "dniEstudiante", referencedColumnName = "dniEstudiante")
+    @JoinColumn(name = "dniestudiante", referencedColumnName = "dniestudiante")
     private Estudiante estudiante;
 
     // Otros campos que desees agregar a Inscripcion

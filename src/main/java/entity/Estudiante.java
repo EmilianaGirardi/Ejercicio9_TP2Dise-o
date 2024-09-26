@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -19,11 +20,10 @@ import java.util.List;
 
 //Javax persistence
 @Entity
-public class Estudiante
-{
+public class Estudiante implements Serializable {
     
 	@Id
-    private String dniEstudiante;
+    private String dniestudiante;
 
     @Column(nullable = false)
     private String apellido;

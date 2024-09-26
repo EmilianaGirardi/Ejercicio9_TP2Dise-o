@@ -11,7 +11,7 @@ public interface Condicion {
         private String valorLU;
         @Override
         public String getCondicion(){
-            String condicion = "WHERE e.libreta_universitaria = " + valorLU;
+            String condicion = "WHERE e.libretaUniversitaria = " + "'"+valorLU+"'";
             return condicion;
         }
     }
@@ -21,7 +21,7 @@ public interface Condicion {
         private char genero;
         @Override
         public String getCondicion(){
-            String condicion = "WHERE e.genero = " + genero;
+            String condicion = "WHERE e.genero = " + "'"+genero+"'";
             return condicion;
         }
     }
@@ -43,9 +43,9 @@ public interface Condicion {
 
         @Override
         public String getCondicion() {
-            return "WHERE i.id_carrera = " + idCarrera +
-                    "and i.dni_estudiante in " +
-                    "(SELECT e.dni_estudiante from Estudiate e where e.ciudad = " + ciudad;
+            return " WHERE i.carrera.idcarrera = " + idCarrera +
+                    " and i.estudiante.dniestudiante in " +
+                    "(SELECT e.dniestudiante from Estudiante e where e.ciudad = " + "'"+ciudad+"')";
         }
     }
 
@@ -53,7 +53,7 @@ public interface Condicion {
         private String ciudad;
         @Override
         public String getCondicion() {
-            return "WHERE e.ciudad = " + ciudad;
+            return "WHERE e.ciudad = " + "'"+ciudad+"'";
         }
     }
 
