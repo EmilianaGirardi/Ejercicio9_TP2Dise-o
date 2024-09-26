@@ -432,7 +432,7 @@ El sistema permite realizar las siguientes operaciones:
 Los diagramas de objetos y DER están incluidos en la carpeta `/diagrams`. Estos representan las entidades y relaciones modeladas en el sistema:
 
 - **Diagrama de objetos**: `/diagrams/diagrama-objetos.png`
-- **Diagrama DER**: `/diagrams/diagrama-der.png`
+- **Diagrama DER**: `data/Der.png`
 
 ---
 
