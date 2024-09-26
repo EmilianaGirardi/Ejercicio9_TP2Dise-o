@@ -1,18 +1,18 @@
 package entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
+@EqualsAndHashCode
 @Entity
 public class Carrera {
     @Id
@@ -20,4 +20,10 @@ public class Carrera {
 
     @Column(nullable = false)
     private String nombre;
+
+
+    @OneToMany(mappedBy = "carrera")
+    private List<Inscripcion> inscripciones;
+
 }
+

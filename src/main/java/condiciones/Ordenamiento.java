@@ -15,7 +15,7 @@ public interface Ordenamiento {
         }
     }
 
-    /*
+
     @AllArgsConstructor
     public class OrdenamientoVacio implements Ordenamiento{
         @Override
@@ -23,7 +23,7 @@ public interface Ordenamiento {
             return "";
         }
     }
-    */
+
 
     public class OrdenamientoCantInscriptos implements Ordenamiento{
         @Override

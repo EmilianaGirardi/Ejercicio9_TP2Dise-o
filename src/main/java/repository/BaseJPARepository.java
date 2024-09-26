@@ -33,22 +33,24 @@ public class BaseJPARepository <Entity, ID extends Serializable> implements Repo
 	}
 
 	public boolean exist(ID id) {
-		Entity e = findById(id);
-		if (e == null){
-			return false;
-		} else return true;
+		return findById(id) != null;
 	}
 
 	@Override
-	public void persist(Entity entity) {
+	public void persist(Entity entity) throws EntityExistsException{
 		em.getTransaction().begin();
+		//System.out.print("llegue aca soy: "+ entityClass.getSimpleName()+"id"+idClass.getSimpleName());
 		try {
 			em.persist(entity);
 		} catch (EntityExistsException e) {
-			em.merge(entity);
-		}
+				System.out.println("Entity already exists: " + e.getMessage());
+				em.merge(entity);
+			}
+		//System.out.print(" antes commit "+entityClass.getSimpleName());
 		em.getTransaction().commit();
+		//System.out.print(" termine "+entityClass.getSimpleName());
 	}
+
 
 	@Override
 	public void delete(ID id) {
