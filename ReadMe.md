@@ -4,11 +4,29 @@ Completado: No
 
 # Registro de Estudiantes y Carreras- Proyecto
 
+### Integrantes
+
+- **Estudiantes:** Girardi Emiliana, Delgado Lucia, Villa Eliseo, Palacios Joaquín.
+- **Materia**: Diseño de Sistemas de Software
+- **Fecha de entrega**: 26/09/2024
+
+## Diagrama de objetos y DER
+
+Los diagramas de objetos y DER están incluidos en la carpeta `/diagrams`. Estos representan las entidades y relaciones modeladas en el sistema:
+
+- **Diagrama de objetos**: `data/Dclases.png`
+- **Diagrama DER**: `data/Der.png`
+
+---
+
 ## Descripción
 
 Este proyecto implementa un sistema de registro de estudiantes y carreras, que permite gestionar información académica de los estudiantes en una universidad. El sistema incluye las funcionalidades para registrar estudiantes, matricularlos en carreras, y realizar diversas consultas a través de JPQL para obtener información relacionada con estudiantes y carreras.
 
 ## Características del sistema
+
+Usamos un servidor local de Postgresql con usuario: postgres y contraseña: postgres y puerto: 5432.
+Al momento de ejecutar el main(donde desarrollamos todas las consultas) no tendrian que existir las tablas.
 
 Se implementaron las siguientes entidades en JPA:
 
@@ -426,18 +444,3 @@ El sistema permite realizar las siguientes operaciones:
     }
     ```
     
-
-## Diagrama de objetos y DER
-
-Los diagramas de objetos y DER están incluidos en la carpeta `/diagrams`. Estos representan las entidades y relaciones modeladas en el sistema:
-
-- **Diagrama de objetos**: `data/Dclases.png`
-- **Diagrama DER**: `data/Der.png`
-
----
-
-### Integrantes
-
-- **Estudiantes:** Girardi Emiliana, Delgado Lucia, Villa Eliseo, Palacios Joaquín.
-- **Materia**: Diseño de Sistemas de Software
-- **Fecha de entrega**: 26/09/2024
