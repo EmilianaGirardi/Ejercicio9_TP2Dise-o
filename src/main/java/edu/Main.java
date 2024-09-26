@@ -15,6 +15,52 @@ import repository.*;
 
 public class Main {
 
+	public static void main(String[] args) {
+		// Inicializacion de los repositorios
+		RepositoryFactory fac = JPARepositoryFactory.getInstance();
+
+		CarreraRepository repCarrera = fac.getCarreraRepository();
+		InscripcionRepository repInscripcion = fac.getInscripcionRepository();
+		EstudianteRepository repEstudiante = fac.getEstudianteRepository();
+
+		//DAR DE ALTA UN ESTUDIANTE
+		persistirEstudiantes(repEstudiante);
+		List<Estudiante> estudiantes = repEstudiante.findAll(); // Obtener la lista de estudiantes
+
+		persistirCarreras(repCarrera);
+		List<Carrera> carreras = repCarrera.findAll(); // Obtener la lista de carreras
+
+		//MATRICULAR UN ESTUDIANTE EN UNA CARRERA
+		persistirInscripciones(repInscripcion, estudiantes, carreras);
+
+		System.out.println("b.3");
+		//Recuperar todos los estudiantes, y especificar algún criterio de ordenamiento simple.
+		recuperarEstudiantesConOrdenamiento(repEstudiante);
+
+		System.out.println("b.4");
+		//Recuperar un estudiante, en base a su número de libreta universitaria.
+		recuperEstudianteLU(repEstudiante);
+
+		System.out.println("b.5");
+		//Recuperar todos los estudiantes, en base a su género.
+		recuperarEstudiantesGenero(repEstudiante);
+
+		System.out.println("b.6");
+		//Recuperar las carreras con estudiantes inscriptos, y ordenar por cantidad de inscriptos.
+		recuperarCarrerasConInscriptosOrdXCant(repInscripcion);
+
+		System.out.println("b.7");
+		//Recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia.
+		recuperarEstudiantesDeCarreraXCiudad(repInscripcion);
+
+		System.out.println("b.8");
+		//Generar un reporte de las carreras, que para cada carrera incluya información de los inscriptos y
+		// egresados por año. Se deben ordenar las carreras alfabéticamente, y presentar los años de manera cronológica.
+		recuperarCarrerasInscriptosYEgresados(repCarrera);
+	}
+
+	//------------------------------FUNCIONES DE TABLAS-------------------------------------------------------------
+
 	public static Carrera crearCarrera(int id, String n){
 		Carrera car = new Carrera();
 		car.setIdcarrera(id);
@@ -108,50 +154,7 @@ public class Main {
 		}
 	}
 
-
-	public static void main(String[] args) {
-		// Inicializacion de los repositorios
-		RepositoryFactory fac = JPARepositoryFactory.getInstance();
-
-		CarreraRepository repCarrera = fac.getCarreraRepository();
-		InscripcionRepository repInscripcion = fac.getInscripcionRepository();
-		EstudianteRepository repEstudiante = fac.getEstudianteRepository();
-
-		//DAR DE ALTA UN ESTUDIANTE
-		persistirEstudiantes(repEstudiante);
-		List<Estudiante> estudiantes = repEstudiante.findAll(); // Obtener la lista de estudiantes
-
-		persistirCarreras(repCarrera);
-		List<Carrera> carreras = repCarrera.findAll(); // Obtener la lista de carreras
-
-		//MATRICULAR UN ESTUDIANTE EN UNA CARRERA
-		persistirInscripciones(repInscripcion, estudiantes, carreras);
-
-		System.out.println("b.3");
-		//Recuperar todos los estudiantes, y especificar algún criterio de ordenamiento simple.
-		recuperarEstudiantesConOrdenamiento(repEstudiante);
-
-		System.out.println("b.4");
-		//Recuperar un estudiante, en base a su número de libreta universitaria.
-		recuperEstudianteLU(repEstudiante);
-
-		System.out.println("b.5");
-		//Recuperar todos los estudiantes, en base a su género.
-		recuperarEstudiantesGenero(repEstudiante);
-
-		System.out.println("b.6");
-		//Recuperar las carreras con estudiantes inscriptos, y ordenar por cantidad de inscriptos.
-		recuperarCarrerasConInscriptosOrdXCant(repInscripcion);
-
-		System.out.println("b.7");
-		//Recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia.
-		recuperarEstudiantesDeCarreraXCiudad(repInscripcion);
-
-		System.out.println("b.8");
-		//Generar un reporte de las carreras, que para cada carrera incluya información de los inscriptos y
-		// egresados por año. Se deben ordenar las carreras alfabéticamente, y presentar los años de manera cronológica.
-		recuperarCarrerasInscriptosYEgresados(repCarrera);
-	}
+//------------------------------FUNCIONES DE CONSULTAS-------------------------------------------------------------
 
 	private static void recuperarCarrerasInscriptosYEgresados(CarreraRepository repCarrera) {
 		List<ReporteCarreraDTO> reportes = repCarrera.obtenerListadoCarreras();
@@ -241,164 +244,3 @@ public class Main {
 		}
 	}
 }
-
-
-
-	/*
-	// TODO: Recuperar todos los estudiantes, y especificar algún criterio de ordenamiento simple.
-	private static void recuperarEstudiantesConOrdenamiento(EstudianteRepository repEstudiante) {
-		Ordenamiento.OrdenamientoSimple o = new Ordenamiento.OrdenamientoSimple("apellido");
-		List<Estudiante> estudiantes = repEstudiante.findWith(o);
-
-		if (estudiantes == null || estudiantes.isEmpty()) {
-			System.out.println("No hay estudiantes para mostrar.");
-		} else {
-			System.out.println("Lista de Estudiantes:");
-			for (Estudiante estudiante : estudiantes) {
-				System.out.printf("DNI: %s, Nombre: %s %s, Libreta Universitaria: %s, Género: %c, Fecha de Nacimiento: %s, Ciudad: %s%n",
-						estudiante.getDniEstudiante(),
-						estudiante.getNombre(),
-						estudiante.getApellido(),
-						estudiante.getLibretaUniversitaria(),
-						estudiante.getGenero(),
-						estudiante.getFechaNacimiento(),
-						estudiante.getCiudad());
-			}
-		}
-	}
-
-	
-    public static void main(String[] args) {
-    	// Inicializacion de los repositorios
-    	RepositoryFactory fac = JPARepositoryFactory.getInstance();
-    	
-    	CarreraRepository repCarrera = fac.getCarreraRepository();
-    	InscripcionRepository repInscripcion = fac.getInscripcionRepository();
-    	EstudianteRepository repEstudiante = fac.getEstudianteRepository();
-
-		//DAR DE ALTA UN ESTUDIANTE
-		persistirEstudiantes(repEstudiante);
-
-		List<Estudiante> estudiantes = repEstudiante.findAll(); // Obtener la lista de estudiantes
-		persistirCarreras(repCarrera);
-
-		List<Carrera> carreras = repCarrera.findAll(); // Obtener la lista de carreras
-		//MATRICULAR UN ESTUDIANTE EN UNA CARRERA
-
-
-		persistirInscripciones(repCarrera,repEstudiante,repInscripcion, estudiantes, carreras);
-
-
-
-		System.out.println("hola5");
-		//Recuperar todos los estudiantes, y especificar algún criterio de ordenamiento simple.
-		//recuperarEstudiantesConOrdenamiento(repEstudiante);
-
-		//Recuperar un estudiante, en base a su número de libreta universitaria.
-		recuperEstudianteLU(repEstudiante);
-
-		//Recuperar todos los estudiantes, en base a su género.
-		recuperarEstudiantesGenero(repEstudiante);
-
-		//Recuperar las carreras con estudiantes inscriptos, y ordenar por cantidad de inscriptos.
-		recuperarCarrerasConInscriptosOrdXCant(repInscripcion);
-
-		//Recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia.
-		recuperarEstudiantesDeCarreraXCiudad(repInscripcion);
-
-		//Generar un reporte de las carreras, que para cada carrera incluya información de los inscriptos y
-		// egresados por año. Se deben ordenar las carreras alfabéticamente, y presentar los años de manera cronológica.
-		recuperarCarrerasInscriptosYEgresados(repCarrera);
-	}
-
-	private static void recuperarCarrerasInscriptosYEgresados(CarreraRepository repCarrera) {
-		List<ReporteCarreraDTO> reportes = repCarrera.obtenerListadoCarreras();
-		if (reportes == null || reportes.isEmpty()) {
-			System.out.println("No hay carreras para mostrar.");
-		} else {
-			System.out.println("Listado de Reportes de Carrera:");
-			for (ReporteCarreraDTO reporte : reportes) {
-				System.out.println("Nombre de Carrera: " + reporte.getNombreCarrera() +
-						", Año de Inscripción: " + reporte.getAnioInscripcion() +
-						", Inscriptos: " + reporte.getInscriptos() +
-						", Egresados: " + reporte.getEgresados());
-			}
-		}
-	}
-
-	private static void recuperarEstudiantesDeCarreraXCiudad(InscripcionRepository repInscripcion) {
-		int idCarrera = 3;
-		String ciudad = "Buenos Aires";
-
-		Ordenamiento.OrdenamientoVacio ord = new Ordenamiento.OrdenamientoVacio();
-		Condicion.CondicionEstPorCarreraYCiudad cond = new Condicion.CondicionEstPorCarreraYCiudad(idCarrera,ciudad);
-		List<Estudiante> estudiantes = repInscripcion.getEstudiantes(cond, ord);
-		if (estudiantes == null || estudiantes.isEmpty()) {
-			System.out.println("No hay estudiantes para mostrar.");
-		} else {
-			imprimirEstudiantes(estudiantes);
-		}
-	}
-
-	private static void recuperarCarrerasConInscriptosOrdXCant(InscripcionRepository repInscripcion) {
-		Condicion.CondicionVacia cond = new Condicion.CondicionVacia();
-		Ordenamiento.OrdenamientoCantInscriptos ord = new Ordenamiento.OrdenamientoCantInscriptos();
-		List<Carrera> carreras = repInscripcion.getCarreras(cond,ord);
-		if (carreras == null || carreras.isEmpty()) {
-			System.out.println("No hay carreras para mostrar.");
-		} else {
-			System.out.println("Listado de Carreras:");
-			for (Carrera carrera : carreras) {
-				System.out.println("ID: " + carrera.getIdCarrera() + ", Nombre: " + carrera.getNombre());
-			}
-		}
-	}
-
-	private static void recuperarEstudiantesGenero(EstudianteRepository repEstudiante) {
-		Condicion.CondicionGenero cond = new Condicion.CondicionGenero('M');
-		List<Estudiante> estudiantes = repEstudiante.findWith(cond);
-		if (estudiantes == null || estudiantes.isEmpty()) {
-			System.out.println("No hay estudiantes para mostrar.");
-		} else {
-			imprimirEstudiantes(estudiantes);
-		}
-	}
-
-	private static void recuperEstudianteLU(EstudianteRepository repEstudiante) {
-		Condicion.CondicionLU cond = new Condicion.CondicionLU("2345");
-		List<Estudiante> estudiantes = repEstudiante.findWith(cond);
-		if (estudiantes == null || estudiantes.isEmpty()) {
-			System.out.println("No hay estudiantes para mostrar.");
-		} else {
-			imprimirEstudiantes(estudiantes);
-		}
-	}
-
-	private static void recuperarEstudiantesConOrdenamiento(EstudianteRepository repEstudiante) {
-		Ordenamiento.OrdenamientoSimple o = new Ordenamiento.OrdenamientoSimple("apellido");
-		List<Estudiante> estudiantes = repEstudiante.findWith(o);
-
-		if (estudiantes == null || estudiantes.isEmpty()) {
-			System.out.println("No hay estudiantes para mostrar.");
-		} else {
-			imprimirEstudiantes(estudiantes);
-		}
-	}
-
-	public static void imprimirEstudiantes(List<Estudiante> estudiantes){
-		System.out.println("Lista de Estudiantes:");
-		for (Estudiante estudiante : estudiantes) {
-			System.out.printf("DNI: %s, Nombre: %s %s, Libreta Universitaria: %s, Género: %c, Fecha de Nacimiento: %s, Ciudad: %s%n",
-					estudiante.getDniEstudiante(),
-					estudiante.getNombre(),
-					estudiante.getApellido(),
-					estudiante.getLibretaUniversitaria(),
-					estudiante.getGenero(),
-					estudiante.getFechaNacimiento(),
-					estudiante.getCiudad());
-		}
-	}
-
-}
-
-	 */
