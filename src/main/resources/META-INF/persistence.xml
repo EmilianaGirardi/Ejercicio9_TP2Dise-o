@@ -22,7 +22,7 @@
 
 
             <!-- Propiedad para la generacion automatica del esquema de la base de datos -->
-            <property name="hibernate.hbm2ddl.auto" value="create" />
+            <property name="hibernate.hbm2ddl.auto" value="update" />
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
             <property name="show_sql" value="false" />
         </properties>

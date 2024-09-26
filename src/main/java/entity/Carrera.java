@@ -21,7 +21,9 @@ public class Carrera {
     @Column(nullable = false)
     private String nombre;
 
+
     @OneToMany(mappedBy = "carrera")
     private List<Inscripcion> inscripciones;
 
 }
+
